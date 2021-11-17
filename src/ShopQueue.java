@@ -22,10 +22,10 @@ public class ShopQueue {
         queue.add(buyer1);
         queue.add(buyer2);
         queue.add(buyer3);
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             Buyer buyer = queue.poll();
-            sum+=galya.calcSum(buyer);
-            System.out.println(buyer.tCust+" набрал на - "+sum+ " руб.");
+            sum += galya.calcSum(buyer);
+            System.out.println(buyer.tCust + " набрал на - " + sum + " руб.");
         }
     }
 }
