@@ -1,3 +1,6 @@
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -70,15 +73,72 @@ public class Vocabulary {
         iterator = vocabulary.listIterator(0);
         while (iterator.hasNext()) {
             s = iterator.next();
-            if (s.equals(new StringBuilder(s).reverse().toString())){
+            if (s.equals(new StringBuilder(s).reverse().toString())) {
                 System.out.println(s);
             }
+        }
 
-            // Вывести все слова - анограммы
-            iterator = vocabulary.listIterator(0);
+        // Вывести все слова - анограммы
+        iterator = vocabulary.listIterator(0);
+        Multimap<String, String> anagrams = ArrayListMultimap.create();
+        while (iterator.hasNext()) {
+            s = iterator.next();
+            char[] arr = s.toCharArray();
+            Arrays.sort(arr);
+            String key = new String(arr);
+            anagrams.put(key, s);
+        }
+        System.out.println(anagrams.size());
+        String key = "";
+        String key2 = "";
+        Map.Entry<String, String> entry2 = null;
+        for (Map.Entry<String, String> entry : anagrams.entries()){
+            key = entry.getKey();
+            if (key.equals(key2))
+                System.out.println(entry2.getValue()+" "+entry.getValue()+";");
+            key2 = key;
+            entry2 = entry;
+        }
 
+        //6. Найти слова с тремя одинаковыми буквами
+
+        iterator = vocabulary.listIterator(0);
+        while (iterator.hasNext()) {
+            s = iterator.next();
+            char[] arr = s.toCharArray();
+            Arrays.sort(arr);
+            count =1;
+            char c2 = ' ';
+            for (i=0; i<arr.length; i++){
+                char c = arr[i];
+                if (c2 == c) count++;
+                else count =1;
+                if (count == 3) {
+                    System.out.println(s+" ");
+                    break;
+                }
+                c2 = c;
+            }
+        }
+
+        //7. Найти слова, где 3 буквы следуют в алфавитном порядке
+        iterator = vocabulary.listIterator(0);
+        while (iterator.hasNext()) {
+            s = iterator.next();
+            char[] arr = s.toCharArray();
+            count = 1;
+            char c2 = ' ';
+            for (i = 0; i < arr.length; i++) {
+                char c = arr[i];
+                if (c- c2 == 1) count++;
+                else count = 1;
+                if (count == 3) {
+                    System.out.println(s + "--- ");
+                    break;
+                }
+                c2 = c;
+            }
         }
     }
-
 
 }
